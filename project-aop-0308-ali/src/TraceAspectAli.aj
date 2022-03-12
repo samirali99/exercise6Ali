@@ -1,10 +1,9 @@
 
 public aspect TraceAspectAli {
 	pointcut classToTrace(): within(ComponentApp) || within(DataApp)
-							|| within(ServiceApp);
+							|| within(ServiceApp) || within(Program);
 	
-	pointcut methodToTrace(): classToTrace() && execution();
-	
+	pointcut methodToTrace(): classToTrace() && execution(String getName());
 	
 	before(): methodToTrace() {
 		String before = thisJoinPointStaticPart.getSignature() + ", "
@@ -16,3 +15,4 @@ public aspect TraceAspectAli {
 		System.out.println("\t<--" + thisJoinPointStaticPart.getSourceLocation().getFileName());
 	}
 }
+
